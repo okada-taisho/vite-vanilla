@@ -24,7 +24,7 @@ export default defineConfig({
   // 下記を追加する
   resolve: {
     alias: {
-      "@": "/resources/js",
+      "@": "/src",
     },
   },
 });
