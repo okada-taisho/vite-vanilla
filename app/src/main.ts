@@ -4,11 +4,11 @@ import Footer from "@/component/Footer/index";
 import Header from "@/component/Header/index";
 import setComponent from "@/utils/setComponent";
 
-const Home = async () => {
-  const path = window.location.pathname;
+const Home = async ():Promise<void> => {
+  const path:string = window.location.pathname;
   const Component = await setComponent(path)
 
-  const useComponent = () => {
+  const useComponent = ():void => {
     render(
       `${Header}
           <body>

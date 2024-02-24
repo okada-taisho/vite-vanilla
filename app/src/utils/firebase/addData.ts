@@ -1,6 +1,8 @@
 import db from "@/firebase";
 import { collection, addDoc } from "firebase/firestore";
-const addData = async () => {
+import { DocumentReferenceType } from "./type/types";
+
+const addData = async (): Promise<DocumentReferenceType> => {
   try {
     const res = await addDoc(collection(db, "Food"), {
       name: "ポテト",
@@ -11,6 +13,7 @@ const addData = async () => {
     return res;
   } catch (err) {
     console.error("Error:", err);
+    throw err;
   }
 };
 

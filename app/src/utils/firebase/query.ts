@@ -1,34 +1,34 @@
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
+import { collection, getDocs, doc, getDoc, DocumentData } from "firebase/firestore";
 import db from "@/firebase";
+import { CollectionReferenceType, DocumentReferenceType, DocumentSnapshotType, QuerySnapshotType } from "./type/types";
 
-const getDBFood = async () => {
+const getDBFood = async (): Promise<DocumentData[] | null> => {
   try {
-    const FoodsCol = collection(db, "Food");
-    const FoodSnapshot = await getDocs(FoodsCol);
+    const FoodsCol:CollectionReferenceType = collection(db, "Food");
+    const FoodSnapshot:QuerySnapshotType = await getDocs(FoodsCol);
     if (!FoodSnapshot.empty) {
-      const FoodList = FoodSnapshot.docs.map((doc) => doc.data());
+      const FoodList: DocumentData[] = FoodSnapshot.docs.map((doc) => doc.data());
       return FoodList;
     } else {
-      console.log(FoodSnapshot);
       return null;
     }
   } catch (err) {
     console.error("Error:", err);
+    return null
   }
 };
 
-const getDBFoodById = async (documentId:string) => {
+const getDBFoodById = async (documentId:string):Promise<DocumentData | null> => {
     try {
-      const FoodsCol = collection(db, "Food");
-      const FoodDocRef = doc(FoodsCol, documentId);
+      const FoodsCol:CollectionReferenceType = collection(db, "Food");
+      const FoodDocRef:DocumentReferenceType = doc(FoodsCol, documentId);
   
-      const FoodSnapshot = await getDoc(FoodDocRef);
+      const FoodSnapshot:DocumentSnapshotType = await getDoc(FoodDocRef);
   
       if (FoodSnapshot.exists()) {
-        const FoodData = FoodSnapshot.data();
+        const FoodData: DocumentData = FoodSnapshot.data();
         return FoodData;
       } else {
-        console.log("指定されたドキュメントが存在しません。");
         return null;
       }
     } catch (error) {

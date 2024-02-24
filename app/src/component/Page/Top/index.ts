@@ -1,19 +1,21 @@
 import { getDBFood } from "@/utils/firebase/query";
+import { FoodDataType } from "@/utils/firebase/type/types";
+import { DocumentData } from "firebase/firestore";
 
-const createTopDOM = async () => {
-  const FoodListState: any = [];
+const createTopDOM = async ():Promise<string | null> => {
+  const FoodListState: DocumentData[] = [];
 
   try {
-    const res = await getDBFood();
+    const res: DocumentData[] | null = await getDBFood();
     if (res) {
       res.forEach((el) => {
         FoodListState.push(el);
       });
     }
-    const createFoodListDom = async (FoodListState: any) => {
-      let dom = "";
+    const createFoodListDom = async (FoodListState: FoodDataType):Promise<string> => {
+      let dom:string = "";
       if (FoodListState.length > 0) {
-        FoodListState.forEach(async (el: any) => {
+        FoodListState.forEach(async (el) => {
           const Dom = `<li>
           <a href="/about?productID=${el.id}">
           <img src="${el.image_path}" alt="${el.name}">
@@ -25,11 +27,11 @@ const createTopDOM = async () => {
         });
         return dom
       }else {
-        const ErrorDom = `<p>データが存在しませんでした。</p>`;
+        const ErrorDom:string = `<p>データが存在しませんでした。</p>`;
         return ErrorDom;
       }
     };
-    const productDom = await createFoodListDom(FoodListState);
+    const productDom:string = await createFoodListDom(FoodListState);
     
     const Top = `
     <div class="content wrapper">
@@ -42,6 +44,7 @@ const createTopDOM = async () => {
     return Top;
   } catch (err) {
     console.log("Error:", err);
+    return null
   }
 };
 export default createTopDOM;

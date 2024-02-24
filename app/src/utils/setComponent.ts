@@ -5,16 +5,16 @@ import systemError from "@/component/Error/systemError";
 import "@/style.scss";
 import createTopDOM from "@/component/Page/Top/index";
 
-const setComponent = async (path:string) => {
-    let Component = "";
+const setComponent = async (path:string):Promise<string> => {
+    let Component:string = "";
 
     try {
       if (path === "/") {
-        const Top = await createTopDOM();
+        const Top:string | null = await createTopDOM();
         Component = checkRender(Top);
         
       } else if (path === "/about") {
-        const About = await createAboutDOM();
+        const About:string | null = await createAboutDOM();
         Component = checkRender(About);
         
       } else {

@@ -1,6 +1,6 @@
 import systemError from "./systemError";
 
-const checkRender = (Component: any) => {
+const checkRender = (Component:string | null):string => {
   if (Component) {
     return Component 
   } else {

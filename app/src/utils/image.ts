@@ -1,3 +1,3 @@
-const image = "src/images" 
+const image:string= "src/images" 
 
 export {image}

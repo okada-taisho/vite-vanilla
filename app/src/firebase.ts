@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore';
+import { FirebaseApp, initializeApp } from "firebase/app";
+import { Firestore, getFirestore } from 'firebase/firestore';
 
 
 
@@ -9,7 +9,11 @@ import { getFirestore } from 'firebase/firestore';
 
 // Your web app's Firebase configuration later, measurementId is optional
 
-const firebaseConfig = {
+type firebaseConfigType = {
+  [key:string]:string;
+}
+
+const firebaseConfig:firebaseConfigType = {
   apiKey: import.meta.env.VITE_API_KEY,
   authDomain:import.meta.env.VITE_AUTH_DOMAIN,
   projectId:import.meta.env.VITE_PROJECT_ID,
@@ -19,18 +23,8 @@ const firebaseConfig = {
   measurementId:import.meta.env.VITE_MEASUREMENT_ID,
 };
 
-
-
-
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
-const db =  getFirestore(app);
-
-
-
-
+const app:FirebaseApp = initializeApp(firebaseConfig);
+const db:Firestore =  getFirestore(app);
 
 
 export default db

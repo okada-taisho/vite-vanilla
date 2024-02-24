@@ -1,20 +1,22 @@
 import { getDBFoodById } from "@/utils/firebase/query";
+import { DocumentData } from "firebase/firestore";
 
-const createAboutDOM = async () => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const documentID = urlParams.get("productID");
+const createAboutDOM = async ():Promise<string | null> => {
+  const urlParams:URLSearchParams = new URLSearchParams(window.location.search);
+  const documentID:string | null = urlParams.get("productID");
 
   if (!documentID) {
     return null;
-  } else {
-    try {
-      const data = await getDBFoodById(documentID);
-      
-      if (!data) {
-        return null;
-      }
+  }
 
-      const dom = `
+  try {
+    const data: DocumentData | null = await getDBFoodById(documentID);
+
+    if (!data) {
+      return null;
+    }
+
+    const dom:string = `
         <div class="content wrapper">
           <h1 class="page-title">${data.name}</h1>
           <div id="item">
@@ -30,11 +32,10 @@ const createAboutDOM = async () => {
         </div>
       `;
 
-      return dom;
-    } catch (error) {
-      console.error("Error:", error);
-      return null;
-    }
+    return dom;
+  } catch (error) {
+    console.error("Error:", error);
+    throw error
   }
 };
 

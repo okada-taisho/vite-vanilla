@@ -1,8 +1,8 @@
 
-const useState = (initState:any,) => {
+const useState = (initState:undefined) => {
     let state = initState
 
-    const setState = (updateState:any) => {
+    const setState = (updateState:undefined) => {
         state = updateState
     }
 
